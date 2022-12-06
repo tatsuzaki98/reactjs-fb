@@ -16,3 +16,12 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const firedb = firebase.firestore();
 export {firebase, auth, firedb};
+
+/* Schema */
+
+export const TMP_RESERVE = 'tmpReserve';
+export interface DocTmpReserve {
+  owner: string;
+  date: string;
+  createdAt: firebase.firestore.Timestamp;
+};

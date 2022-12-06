@@ -9,22 +9,33 @@ const View = (props: Props) => (
           <tr>
             <th>Date</th>
             <th>is reserved</th>
+            <th>owner</th>
             <th>select</th>
           </tr>
         </thead>
         <tbody>
-          {props.state.reservations.map((each, key) => (
-            <tr key={key}>
-              <td>{each.date.toISOString().split('T')[0]}</td>
-              <td>{each.isReserved ? 'y' : 'n'}</td>
-              <td><input type={'checkbox'}/></td>
-            </tr>
-          ))
+          {props.state.reservations.map((each, key) => {
+            const checked = props.state.selectedDate === each.dateString;
+            return <tr key={key}>
+              <td>{each.dateString}</td>
+              <td>{each.isReserved ? 'yes' : 'no'}</td>
+              <td>{each.owner}</td>
+              <td>{each.isReserved ? null :
+                <input
+                  type={'checkbox'}
+                  onChange={() => props.handle.select(each.dateString)}
+                  checked={checked}
+                />
+              }</td>
+            </tr>;
+          })
           }
         </tbody>
       </table>
       <div>
-        <button>submit</button>
+        <button
+          onClick={props.handle.submit}
+        >submit</button>
       </div>
     </form>
   </div>
